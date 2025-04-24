@@ -1,12 +1,9 @@
+// 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
 int make_positive(int n)
 {
     if (n < 0)
@@ -62,9 +59,7 @@ int main()
     }
     printf("%d",smallest);
     // Write an answer using printf(). DON'T FORGET THE TRAILING \n
-    // To debug: fprintf(stderr, "Debug messages...\n");
-
-    
+    // To debug: fprintf(stderr, "Debug messages...\n")    
 
     return 0;
 }
