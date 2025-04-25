@@ -30,7 +30,6 @@ char **ft_sort(char **arr)
 {
 	char **tmp;
 	
-	arr++;
 	tmp = arr;
 	
 	while(*arr)
@@ -46,7 +45,14 @@ char **ft_sort(char **arr)
 	return tmp;
 }
 
+char *pattern_finder(char *word, char **elements)
+{
+	char *nword;
+	char *split_A;
+	char *split_B;
 
+	return nword;
+}
 
 int main(int argc, char **argv)
 {
@@ -56,11 +62,14 @@ int main(int argc, char **argv)
 
     // Write an answer using printf(). DON'T FORGET THE TRAILING \n
     // To debug: fprintf(stderr, "Debug messages...\n");
-    char **tmp = ft_sort(argv);
-    while(*tmp)
+    char *word = *(argv + 1);
+    char **elements = ft_sort(argv + 2);
+    printf("word is : %s\n", word);
+    char *N_word = pattern_finder(word, elements);
+    while(*elements)
     {
-	    printf("%s ",*(tmp));
-	    tmp++;
+	    printf("%s ",*(elements));
+	    elements++;
     }
     //printf("spellings\n");
 

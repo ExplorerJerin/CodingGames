@@ -54,10 +54,10 @@ int main()
        int t;
        scanf("%d", &t);
        smallest = find_lowest(t, i);
-       //printf("%d ",t);
-       //printf("%d,",smallest);
+       printf("%d ",t);
+       printf("%d,",smallest);
     }
-    printf("%d",smallest);
+    //printf("%d",smallest);
     // Write an answer using printf(). DON'T FORGET THE TRAILING \n
     // To debug: fprintf(stderr, "Debug messages...\n")    
 
