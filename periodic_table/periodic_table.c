@@ -163,12 +163,14 @@ int empty(char **str)
 	return count;
 }
 
-char pattern_finder(char *word, char **elements, char **output, char **beg)
+int pattern_finder(char *word, char **elements, char **output, char **beg)
 {
 	char *split_B;
 	char **split_A;
+	char **start;
 	
 	split_A = str_search(word , elements);
+	start = split_A;
 	while(*split_A)
 	{
 		split_B = string_minus(word,*split_A);
@@ -177,12 +179,13 @@ char pattern_finder(char *word, char **elements, char **output, char **beg)
 		{
 			*(output + 1) = NULL;
 			print_Matrix(beg);
+			free(start);
 			return 0;
 		}
 		pattern_finder(split_B,elements,output+1,beg);
 		split_A++;
 	}
-	free(*split_A);
+        	free(start);
 	return 1;
 }
 
@@ -200,7 +203,11 @@ int main(int argc, char **argv)
     pattern_finder(word, elements, output, beg);
     if (empty(output) == 0)
 	    printf("none");
-    free(output);
+    for (int i = 0; output[i]; i++) 
+    {
+    	free(output[i]);
+    }
+    free(beg);
 
  
     return 0;
