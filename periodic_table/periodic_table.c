@@ -166,7 +166,7 @@ char **str_search(char *word, char **elements)
 }
 char *string_minus(char *word, char *minus)
 {
-	while(*word && *minus && *word == *minus)
+	while(*word && *minus && make_lower(*word) == make_lower(*minus))
 	{
 		word++;
 		minus++;
@@ -190,8 +190,30 @@ void print(char *str,char *str1)
 	printf("%s \n",str1);
 }
 
+char	*ft_strcat(char *dest, char *src)
+{
+	char *temp;
 
-char *pattern_finder(char *word, char **elements)
+	temp = dest;
+	while(*dest)
+		dest++;
+	while(*src)
+	{
+		*dest = *src;
+		src++;
+		dest++;
+	}
+	*dest = '\0';
+	return (temp);
+}
+
+add_null(char *str)
+{
+	*str++;
+	*str = '\0';
+}
+
+char pattern_finder(char *word, char **elements, char **output)
 {
 	int count;
 	char *split_B;
@@ -205,20 +227,19 @@ char *pattern_finder(char *word, char **elements)
 	while(*split_A)
 	{
 		split_B = string_minus(word,*split_A);
-		print(*split_A,split_B);
-		pattern_finder(split_B,elements);
+		//ft_strcat(output,*split_A);
+		*output = *split_A;
+		//print(*split_A,split_B);
+		if(*split_B == '\0')
+		{
+			//add_null(output);
+			printf("%s\n", *output);
+			break;
+		}
+		pattern_finder(split_B,elements,output+1);
 		split_A++;
 	}
 
-// 	while(*)
-// 	{
-// 	    printf("%s ",*(split_B));
-// 	    split_B++;
-// 	}
-// 	printf("\n");
-
-
-	return split_B;
 }
 
 int main(int argc, char **argv)
@@ -232,9 +253,16 @@ int main(int argc, char **argv)
 
     char *word = *(argv + 1);
     char **elements = ft_sort(argv + 2);
-    printf("%s|| \n",to_lower(*elements));
+
+    int count = strlen(word);
+    char **output = (char **)malloc((count + 1) * sizeof(char));
+
+ 
+
+   
+
     printf("word is : %s\n", word);
-    char *N_word = pattern_finder(word, elements);
+    pattern_finder(word, elements, output);
     //printf("OUtput is : %s\n", N_word);
     while(*elements)
     {
