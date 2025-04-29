@@ -3,10 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
+
 void	ft_swap(char **first, char **last)
 {
 	char	*temp;
@@ -58,31 +55,7 @@ int str_len(char *str)
 	return count;
 }
 
-char	*to_lower(char *s)
-{
-	char *tem;
-	char *start;
-	int count;
 
-	count = str_len(s);
-	tem = (char *)malloc((count + 1) * sizeof(char));
-	start = tem;
-	while(*s)
-	{
-		if ('A' <= *s && *s <= 'Z')
-		{
-			*tem = *s + 32;
-		}
-		else
-		{
-			*tem = *s;
-		}
-		s++;
-		tem++;
-	}
-	*tem = '\0';
-	return start;
-}
 
 char	make_lower(char a)
 {
@@ -178,98 +151,52 @@ void print_Matrix(char **str)
 {
 	while(*str)
 	{
-		printf("%s, ",*str);
+		printf("%s",*str);
 		str++;
 	}
 	printf("\n");
 }
 
-void print(char *str,char *str1)
-{
-	printf("%s ",str);
-	printf("%s \n",str1);
-}
-
-char	*ft_strcat(char *dest, char *src)
-{
-	char *temp;
-
-	temp = dest;
-	while(*dest)
-		dest++;
-	while(*src)
-	{
-		*dest = *src;
-		src++;
-		dest++;
-	}
-	*dest = '\0';
-	return (temp);
-}
-
-add_null(char *str)
-{
-	*str++;
-	*str = '\0';
-}
-
-char pattern_finder(char *word, char **elements, char **output)
+char pattern_finder(char *word, char **elements, char **output, char **beg)
 {
 	int count;
 	char *split_B;
 	char **split_A;
 	char **start;
-//carbon
-// C arbon
-// Ca rbon
+	
 	split_A = str_search(word , elements);
 	start = split_A;
 	while(*split_A)
 	{
 		split_B = string_minus(word,*split_A);
-		//ft_strcat(output,*split_A);
 		*output = *split_A;
-		//print(*split_A,split_B);
 		if(*split_B == '\0')
 		{
-			//add_null(output);
-			printf("%s\n", *output);
-			break;
+			*(output + 1) = NULL;
+			print_Matrix(beg);
+			return 1;
 		}
-		pattern_finder(split_B,elements,output+1);
+		pattern_finder(split_B,elements,output+1,beg);
 		split_A++;
 	}
-
+	return 0;
 }
 
 int main(int argc, char **argv)
 {
 
-    //char word[31];
-    //scanf("%[^\n]", word);
-
-    // Write an answer using printf(). DON'T FORGET THE TRAILING \n
-    // To debug: fprintf(stderr, "Debug messages...\n");
-
     char *word = *(argv + 1);
     char **elements = ft_sort(argv + 2);
 
     int count = strlen(word);
-    char **output = (char **)malloc((count + 1) * sizeof(char));
+    char **output = malloc((count + 1) * sizeof(char *));
+    char **beg ;
 
- 
+    beg = output;  
 
-   
-
-    printf("word is : %s\n", word);
-    pattern_finder(word, elements, output);
-    //printf("OUtput is : %s\n", N_word);
-    while(*elements)
+    if (!pattern_finder(word, elements, output, beg))
     {
-	    printf("%s ",*(elements));
-	    elements++;
+	    printf("none");
     }
-    //printf("spellings\n");
-
     return 0;
 }
