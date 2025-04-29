@@ -1,7 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 
 
 void	ft_swap(char **first, char **last)
@@ -27,8 +25,7 @@ char **ft_sort(char **arr)
 {
 	char **tmp;
 	
-	tmp = arr;
-	
+	tmp = arr;	
 	while(*arr)
 	{
 		if(*(arr + 1) && ft_strcmp(*(arr),*(arr + 1) ) > 0)
@@ -74,11 +71,9 @@ int str_cmp(char *word,char *element)
 {
 	int count;
 	int match;
-	char *tmp;
 
 	count = 0;
 	match = 0;
-
 	count = str_len(element);
 	while (*word && *element && make_lower(*word) == make_lower(*element))
 	{
@@ -101,7 +96,6 @@ char *str_cpy(char *str1)
 
 	count = str_len(str1);
 	tem = (char *)malloc((count + 1) * sizeof(char));
-
 	start = tem;
 	while(*str1)
 	{
@@ -156,16 +150,25 @@ void print_Matrix(char **str)
 	}
 	printf("\n");
 }
+int empty(char **str)
+{
+	int count;
+
+	count = 0;
+	while (*str)
+	{
+		count++;
+		str++;
+	}
+	return count;
+}
 
 char pattern_finder(char *word, char **elements, char **output, char **beg)
 {
-	int count;
 	char *split_B;
 	char **split_A;
-	char **start;
 	
 	split_A = str_search(word , elements);
-	start = split_A;
 	while(*split_A)
 	{
 		split_B = string_minus(word,*split_A);
@@ -174,29 +177,31 @@ char pattern_finder(char *word, char **elements, char **output, char **beg)
 		{
 			*(output + 1) = NULL;
 			print_Matrix(beg);
-			return 1;
+			return 0;
 		}
 		pattern_finder(split_B,elements,output+1,beg);
 		split_A++;
 	}
-	return 0;
+	free(*split_A);
+	return 1;
 }
 
 int main(int argc, char **argv)
 {
-
+    printf("Number of arguments : %d\n", argc);
     char *word = *(argv + 1);
     char **elements = ft_sort(argv + 2);
 
-    int count = strlen(word);
+    int count = str_len(word);
     char **output = malloc((count + 1) * sizeof(char *));
     char **beg ;
 
     beg = output;  
-
-    if (!pattern_finder(word, elements, output, beg))
-    {
+    pattern_finder(word, elements, output, beg);
+    if (empty(output) == 0)
 	    printf("none");
-    }
+    free(output);
+
+ 
     return 0;
 }
