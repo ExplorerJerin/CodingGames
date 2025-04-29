@@ -203,10 +203,6 @@ int main(int argc, char **argv)
     pattern_finder(word, elements, output, beg);
     if (empty(output) == 0)
 	    printf("none");
-    for (int i = 0; output[i]; i++) 
-    {
-    	free(output[i]);
-    }
     free(beg);
 
  
